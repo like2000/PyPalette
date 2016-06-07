@@ -6,9 +6,8 @@ from matplotlib import colors
 
 width = 1440
 height = 1080
-
 n_colors = 24.
-rwidth = width/n_colors
+
 
 # HLS SPECTRUM
 # ============
@@ -17,14 +16,19 @@ spectrum_array = sns.hls_palette(n_colors, h=0, l=.5, s=1)
 
 # BEIGETONE
 # =========
+bgcolor = (90/360., 0.85, 0.15)
 RGB = [
-    map(lambda x: x*255, colorsys.hls_to_rgb(90/360., 0.85, 0.15)),
+    map(lambda x: x*255, colorsys.hls_to_rgb(*bgcolor)),
     (176, 102, 96),
     (202, 143, 66),
     (171, 156, 115),
     (94, 119, 3),
     (106, 125, 142),
 ]
+print np.array(colors.hex2color('#c2ccd6'))*255
+print colorsys.rgb_to_hls(*colors.hex2color('#c2ccd6'))
+print colorsys.rgb_to_hls(236/255., 236/255., 240/255.)
+print np.array(colorsys.rgb_to_hls(*bgcolor))*255
 palette_array = np.array(RGB) / 255.
 
 # SVG RECTANGLE
@@ -57,7 +61,7 @@ base = ('   xmlns:dc="http://purl.org/dc/elements/1.1/"\n'
         '   xmlns="http://www.w3.org/2000/svg"\n'
         '   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"\n'
         '   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"\n'
-        '   id="svg2"\n'
+        '   id="HB2016"\n'
         '   width="{:d}"\n'.format(width),
         '   height="{:d}"\n'.format(height),
         '   viewBox="0 0 {:d} {:d}"\n'.format(width, height),
@@ -68,6 +72,7 @@ base = ('   xmlns:dc="http://purl.org/dc/elements/1.1/"\n'
         '     id="defs4" />\n'
         '  <sodipodi:namedview\n'
         '     id="base"\n'
+        '     showgrid="false"\n'
         '     inkscape:zoom="1"\n'
         '     inkscape:cx="720"\n'
         '     inkscape:cy="540"\n'
@@ -75,7 +80,8 @@ base = ('   xmlns:dc="http://purl.org/dc/elements/1.1/"\n'
         '     inkscape:window-height="1080"\n'
         '     inkscape:window-x="0"\n'
         '     inkscape:window-y="0"\n'
-        '     inkscape:window-maximized="1" />\n'
+        '     inkscape:window-maximized="1"\n'
+        '     inkscape:current-layer="layer1" />\n'
         '  <metadata\n'
         '     id="metadata7">\n'
         '    <rdf:RDF>\n'
@@ -93,7 +99,7 @@ base = ('   xmlns:dc="http://purl.org/dc/elements/1.1/"\n'
         '     inkscape:label="Base"\n'
         '     inkscape:groupmode="layer">\n'
         '    <rect\n'
-        '       style="opacity:1;fill:#c2ccd6;fill-opacity:1;stroke:none;stroke-width:0.125;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n'
+        '       style="opacity:1;fill:{:s};fill-opacity:1;stroke:none;stroke-width:0.125;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"\n'.format(colors.rgb2hex(colorsys.hls_to_rgb(*bgcolor))),
         '       id="rectangle base"\n'
         '       width="{:d}"\n'.format(width),
         '       height="{:d}"\n'.format(height),
@@ -107,7 +113,8 @@ spectrum = ('  <g\n'
             '     inkscape:groupmode="layer">\n' + ''.join(sum(
                 [rectangle(
                     c=colors.rgb2hex(spectrum_array[i]),
-                    w=rwidth, h=rwidth, x=i*rwidth, y=0)
+                    w=width/24, h=width/24,
+                    x=(i % 24)*width/24, y=2*(i/24)*width/24)
                  for i in range(int(n_colors))], ())) +
             '  </g>\n')
 

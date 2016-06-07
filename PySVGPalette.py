@@ -44,10 +44,13 @@ RGB = [
     (94, 119, 3),
     (106, 125, 142),
     mplrgb_to_rgb(
-        colorsys.hls_to_rgb(90./360, 0.85, 0.15))
+        colorsys.hls_to_rgb(90./360, 0.90, 0.15))
 ]
 palette = rgb_to_mplrgb(RGB)
 print np.array(palette) * 255.
+print mcl.rgb2hex(colorsys.hls_to_rgb(90./360, 0.90, 0.15))
+# print np.array(mcl.hex2color('#d9ded3'))*255
+print np.array(mcl.hex2color('#e6e9e2'))*255
 
 # HSL
 n_colors = 24.
