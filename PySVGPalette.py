@@ -7,10 +7,6 @@ import matplotlib.pyplot as plt
 plt.switch_backend('TkAgg')
 
 
-def rgb_to_mplrgb(a):
-    return np.array(a) / 255.
-
-
 def mplrgb_to_rgb(a):
     return np.array(a) * 255.
 
@@ -36,33 +32,38 @@ def display_palette(p):
 # ======================================================================
 # COLOR SCHEMER
 # ======================================================================
-# BEIGETONE
-RGB = [
+beigetone = np.array([
     (176, 102, 96),
     (202, 143, 66),
     (171, 156, 115),
     (94, 119, 3),
-    (106, 125, 142),
-    mplrgb_to_rgb(
-        colorsys.hls_to_rgb(90./360, 0.90, 0.15))
-]
-palette = rgb_to_mplrgb(RGB)
-print np.array(palette) * 255.
-print mcl.rgb2hex(colorsys.hls_to_rgb(90./360, 0.90, 0.15))
-# print np.array(mcl.hex2color('#d9ded3'))*255
-print np.array(mcl.hex2color('#e6e9e2'))*255
+    (106, 125, 142)])
+earthtone = np.array([
+    (73, 56, 41),
+    (97, 51, 25),
+    (213, 117, 0),
+    (64, 79, 36),
+    (78, 97, 114),
+    (43, 43, 43)])
+bgcolor = colorsys.hls_to_rgb(90/360., 15/16., 0/16.)
+
+palette = earthtone/255.
+hexcolor = mcl.rgb2hex(bgcolor)
 
 # HSL
-n_colors = 24.
+n_colors = 32.
 print "Angle step: {:g}".format(360/n_colors)
-palette_base = sns.hls_palette(n_colors, h=0, l=.5, s=1)
+palette_base = sns.hls_palette(n_colors, h=0, l=15/16., s=1/16.)
+palette_base = sns.hls_palette(n_colors, h=0, l=3/16., s=12/16.)
 
 
-fig, (ax) = plt.subplots(1, figsize=(1920/120., 1080/120.), tight_layout=True)
+fig, (ax) = plt.subplots(1, figsize=(1920/120., 1080/120.), tight_layout=False)
 print (fig.get_figwidth(), fig.get_figheight())
+fig.suptitle("{:s} - {:s}".format(
+    hexcolor, str(np.array(mcl.hex2color(hexcolor))*255)), fontsize=20)
 # fig.patch.set_facecolor(palette[-1])
 
-ax.set_axis_bgcolor(palette[-1])
+ax.set_axis_bgcolor(earthtone[3]/255.)
 ax.set_aspect('equal')
 ax.set_xlim(0, n_colors)
 ax.set_ylim(0, n_colors)
