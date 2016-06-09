@@ -105,14 +105,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
-     inkscape:groupmode="layer"
      id="layer1"
-     inkscape:label="Glass">
+     inkscape:label="Glass"
+     inkscape:groupmode="layer">
     <rect
        style="opacity:1;fill:url(#linearGradient4212);fill-opacity:1;stroke:none;stroke-width:0.125;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rectangle-glass"
@@ -126,7 +126,6 @@
      inkscape:label="Logo"
      inkscape:groupmode="layer">
     <g
-       transform="translate(-4.2639368e-7,2.6737307e-5)"
        id="Banner"
        style="filter:url(#filter4307)">
       <g
